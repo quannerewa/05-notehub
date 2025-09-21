@@ -17,7 +17,7 @@ export interface NewNote {
 export const fetchNotes = async (page: number, search: string) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
-  const params: Record<string, string | number> = { page };
+  const params: Record<string, string> = { page: String(page) };
 
   if (search.trim()) {
     params.search = search.trim();
