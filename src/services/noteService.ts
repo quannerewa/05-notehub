@@ -14,10 +14,10 @@ export interface NewNote {
   tag: NoteTag;
 }
 
-export const fetchNotes = async (page: number, search: string) => {
+export const fetchNotes = async (page: string, search: string) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
-  const params: Record<string, string | number> = { page };
+  const params: Record<string, string> = { page };
 
   if (search.trim()) {
     params.search = search.trim();
@@ -51,7 +51,7 @@ export const createNote = async (newNote: NewNote) => {
 }
 
 
-export const deleteNote = async (noteId: number) => {
+export const deleteNote = async (noteId: string) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
   const res = await axios.delete<Note>(`/notes/${noteId}`, {
