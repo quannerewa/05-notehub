@@ -3,9 +3,10 @@ import type { Note, NoteTag } from '../types/note.ts';
 
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 
+
 export interface FetchNotesResponse {
   notes: Note[];
-  totalPages: number; 
+  totalPages: number;
 }
 
 export interface NewNote {
@@ -17,7 +18,8 @@ export interface NewNote {
 export const fetchNotes = async (page: number, search: string) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
-  const params: Record<string, string> = { page: String(page) }; 
+  // ✅ робимо page строкою, бо API хоче string
+  const params: Record<string, string> = { page: String(page) };
 
   if (search.trim()) {
     params.search = search.trim();
@@ -40,7 +42,6 @@ export const createNote = async (newNote: NewNote) => {
 
   return res.data;
 };
-
 
 export const deleteNote = async (noteId: string) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
