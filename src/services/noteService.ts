@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Note, NoteTag } from '../types/note';
+import type { Note, NoteTag } from '../types/note.ts';
 
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 
