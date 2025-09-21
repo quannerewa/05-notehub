@@ -5,7 +5,7 @@ axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 
 export interface FetchNotesResponse {
   notes: Note[];
-  totalPages: string;
+  totalPages: number; 
 }
 
 export interface NewNote {
@@ -14,49 +14,40 @@ export interface NewNote {
   tag: NoteTag;
 }
 
-export const fetchNotes = async (page: string, search: string) => {
+export const fetchNotes = async (page: number, search: string) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
-  const params: Record<string, string> = { page };
+  const params: Record<string, string> = { page: String(page) }; 
 
   if (search.trim()) {
     params.search = search.trim();
   }
 
-  const res = await axios.get<FetchNotesResponse>("/notes", {
+  const res = await axios.get<FetchNotesResponse>('/notes', {
     params,
     headers: { Authorization: `Bearer ${myKey}` },
   });
-  
-  
-  // const res = await axios.get<FetchNotesResponse>("/notes", {
-  //   params: {
-  //     page,
-  //     search,
-  //   },
-  //   headers: { Authorization: `Bearer ${myKey}` },
-  // });
 
   return res.data;
-}
+};
 
 export const createNote = async (newNote: NewNote) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
-  const res = await axios.post<Note>("/notes", newNote, {
+  const res = await axios.post<Note>('/notes', newNote, {
     headers: { Authorization: `Bearer ${myKey}` },
   });
 
   return res.data;
-}
+};
 
-
-export const deleteNote = async (noteId: string) => {
+export const deleteNote = async (noteId: number) => {
   const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
-  const res = await axios.delete<Note>(`/notes/${noteId}`, {
+  const res = await axios.delete<Note>(`/notes/${String(noteId)}`, {
     headers: { Authorization: `Bearer ${myKey}` },
   });
 
   return res.data;
-}
+};
+
